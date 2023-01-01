@@ -1,0 +1,9 @@
+nest g controller application/controllers/book --no-spec --flat
+
+nest g service application/use-cases/create-book --flat
+
+yarn typeorm migration:create ./src/infra/database/typeorm/migrations/NOME
+
+yarn typeorm migration:run -d ./typeOrm.config.ts
+
+yarn typeorm migration:revert -d ./typeOrm.config.ts
