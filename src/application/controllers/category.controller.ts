@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common/decorators';
 import { CreateCategoryBody } from '../dtos/createCategory.body';
 import { UpdateCategoryBody } from '../dtos/updateCategory.body';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { successfullyDeleted } from '../helpers/ExcludedSuccessful';
 import { CreateCategoryService } from '../use-cases/create-category.service';
 import { DeleteCategoryService } from '../use-cases/delete-category.service';
@@ -25,6 +27,7 @@ export class CategoryController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async create(@Body() body: CreateCategoryBody) {
         const { description, icon, name } = body;
@@ -37,6 +40,7 @@ export class CategoryController {
         return CategoryViewMapper.toHTTP(category)
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     async update(@Body() body: UpdateCategoryBody, @Param('id') id: number) {
         const { description, icon, name } = body;
@@ -50,6 +54,7 @@ export class CategoryController {
         return CategoryViewMapper.toHTTP(category)
     }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async delete(@Param('id') id: number) {
 

@@ -16,7 +16,6 @@ export class UserController {
         private readonly authService: AuthService,
     ) { }
 
-    @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
         const { users } = await this.listUsersService.execute({})
@@ -25,6 +24,7 @@ export class UserController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async create(@Body() body: CreateUserBody) {
         const { name, surname, bio, email, password } = body;
