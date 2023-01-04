@@ -23,6 +23,15 @@ export class TypeOrmUserRepository implements UserRepository {
         await this.userRepository.save(row)
     }
 
+    async findByEmail(email: string): Promise<User> {
+        const user = await this.userRepository.findOne({
+            where: {
+                email
+            }
+        })
+        return TypeormUserMapper.toDomain(user)
+    }
+    
     async findByID(id: number): Promise<User> {
         const user = await this.userRepository.findOne({
             where: {

@@ -14,11 +14,25 @@ import { CreateUserService } from './use-cases/create-user.service';
 import { ListUsersService } from './use-cases/list-users.service';
 import { HashModule } from '../infra/hash/hash.module';
 import { HashProvider } from './providers/hash.provider';
+import { AuthService } from './use-cases/auth.service';
 import BCryptHashProvider from 'src/infra/hash/bcrypt/bcript.provider';
+import { PassportModule } from '@nestjs/passport/dist';
+import { LocalStrategy } from './guards/local.strategy';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './constants/jwt.constants';
+import { JwtStrategy } from './guards/jwt.strategy';
 
 
 @Module({
-  imports: [DatabaseModule, HashModule],
+  imports: [
+    DatabaseModule,
+    HashModule,
+    PassportModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60s' },
+    }),
+  ],
   controllers: [CategoryController, UserController],
   providers: [
     {
@@ -39,6 +53,9 @@ import BCryptHashProvider from 'src/infra/hash/bcrypt/bcript.provider';
     },
     CreateUserService,
     ListUsersService,
+    AuthService,
+    LocalStrategy,
+    JwtStrategy
   ],
 })
 export class DomainModule { }

@@ -26,7 +26,7 @@ export class CreatetableCategories1672508600449 implements MigrationInterface {
 				{
 					name: 'icon',
 					type: 'varchar',
-					length: '50',
+					length: '150',
 				},
                 {
 					name: 'created_at',
