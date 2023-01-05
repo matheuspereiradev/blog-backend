@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { Post } from '../classes/post.class';
 import { PostRepository } from '../repositories/post.repository';
 
-export interface IListPostRequest {}
+export interface IRequest {}
 
-export interface IListPostResponse {
+export interface IResponse {
     posts: Post[]
 }
 
@@ -12,7 +12,7 @@ export interface IListPostResponse {
 export class ListPostsService {
     constructor(private postRepository: PostRepository) { }
 
-    async execute(data: IListPostRequest): Promise<IListPostResponse> {
+    async execute(data: IRequest): Promise<IResponse> {
         const posts = await this.postRepository.find()
         return {
             posts

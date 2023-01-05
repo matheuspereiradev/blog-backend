@@ -3,7 +3,7 @@ import { User } from '../classes/user.class';
 import { HashProvider } from '../providers/hash.provider';
 import { UserRepository } from '../repositories/user.repository';
 
-export interface ICreateUserRequest {
+export interface IRequest {
     name: string,
     surname: string,
     email: string,
@@ -11,7 +11,7 @@ export interface ICreateUserRequest {
     bio: string
 }
 
-export interface ICreateUserResponse {
+export interface IResponse {
     user: User
 }
 
@@ -22,7 +22,7 @@ export class CreateUserService {
         private hashProvider: HashProvider
     ) { }
 
-    async execute({ bio, email, name, password, surname }: ICreateUserRequest): Promise<ICreateUserResponse> {
+    async execute({ bio, email, name, password, surname }: IRequest): Promise<IResponse> {
         
         const passwordEncripted = await this.hashProvider.genarateHash(password)
         const user = new User({

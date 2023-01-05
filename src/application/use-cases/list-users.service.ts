@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../classes/user.class';
 import { UserRepository } from '../repositories/user.repository';
 
-export interface IListUserRequest {}
+export interface IRequest {}
 
-export interface IListUserResponse {
+export interface IResponse {
     users: User[]
 }
 
@@ -12,7 +12,7 @@ export interface IListUserResponse {
 export class ListUsersService {
     constructor(private userRepository: UserRepository) { }
 
-    async execute(data: IListUserRequest): Promise<IListUserResponse> {
+    async execute(data: IRequest): Promise<IResponse> {
         const users = await this.userRepository.find()
         return {
             users

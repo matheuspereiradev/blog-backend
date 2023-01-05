@@ -4,14 +4,14 @@ import { CategoryRepository } from "../repositories/category.repository";
 import { CategoryNotFound } from "./errors/CategoryNotFound.error";
 
 
-export interface IUpdateCategoryRequest {
+export interface IRequest {
     id: number,
     name: string,
     description: string,
     icon: string
 }
 
-export interface IUpdateCategoryResponse {
+export interface IResponse {
     category: Category
 }
 
@@ -19,7 +19,7 @@ export interface IUpdateCategoryResponse {
 export class UpdateCategoryService {
     constructor(private categoryRepository: CategoryRepository) { }
 
-    async execute({ description, name, icon, id }: IUpdateCategoryRequest): Promise<IUpdateCategoryResponse> {
+    async execute({ description, name, icon, id }: IRequest): Promise<IResponse> {
         const category = await this.categoryRepository.findByID(id);
         if (!category)
             throw new CategoryNotFound();

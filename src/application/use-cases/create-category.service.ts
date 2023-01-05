@@ -4,13 +4,13 @@ import { Category } from "../classes/category.class";
 import { CategoryRepository } from "../repositories/category.repository";
 
 
-export interface ICreateCategoryRequest {
+export interface IRequest {
     name: string,
     description: string,
     icon: string
 }
 
-export interface ICreateCategoryResponse {
+export interface IResponse {
     category: Category
 }
 
@@ -18,7 +18,7 @@ export interface ICreateCategoryResponse {
 export class CreateCategoryService {
     constructor(private categoryRepository: CategoryRepository) { }
 
-    async execute({description, name, icon}: ICreateCategoryRequest): Promise<ICreateCategoryResponse> {
+    async execute({description, name, icon}: IRequest): Promise<IResponse> {
         const category = new Category({
             description,
             name,

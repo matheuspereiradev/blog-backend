@@ -6,7 +6,7 @@ import { UserRepository } from '../repositories/user.repository';
 import { CategoryNotFound } from './errors/CategoryNotFound.error';
 import { UserNotFound } from './errors/UserNotFound.error';
 
-export interface ICreatePostRequest {
+export interface IRequest {
     title: string,
     description: string,
     content: string,
@@ -15,7 +15,7 @@ export interface ICreatePostRequest {
     idCategory: number,
 }
 
-export interface ICreatePostResponse {
+export interface IResponse {
     post: Post
 }
 
@@ -28,7 +28,7 @@ export class CreatePostService {
 
     ) { }
 
-    async execute({ content, description, idAuthor, idCategory, thumbnail, title }: ICreatePostRequest): Promise<ICreatePostResponse> {
+    async execute({ content, description, idAuthor, idCategory, thumbnail, title }: IRequest): Promise<IResponse> {
 
         const author = await this.userRepository.findByID(idAuthor)
         const category = await this.categoryRepository.findByID(idCategory)

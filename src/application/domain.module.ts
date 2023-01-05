@@ -25,6 +25,7 @@ import { injectionProviders } from './providers/injection.providers';
 import { ListPostsService } from './use-cases/list-posts.service';
 import { PostController } from './controllers/post.controller';
 import { CreatePostService } from './use-cases/create-post.service';
+import { UpdatePostService } from './use-cases/update-post.service';
 
 
 @Module({
@@ -34,7 +35,7 @@ import { CreatePostService } from './use-cases/create-post.service';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '500s' },
     }),
   ],
   controllers: [
@@ -54,7 +55,8 @@ import { CreatePostService } from './use-cases/create-post.service';
     LocalStrategy,
     JwtStrategy,
     ListPostsService,
-    CreatePostService
+    CreatePostService,
+    UpdatePostService
   ],
 })
 export class DomainModule { }

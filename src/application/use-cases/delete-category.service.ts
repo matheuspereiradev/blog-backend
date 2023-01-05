@@ -4,17 +4,17 @@ import { CategoryRepository } from "../repositories/category.repository";
 import { CategoryNotFound } from "./errors/CategoryNotFound.error";
 
 
-export interface IDeleteCategoryRequest {
+export interface IRequest {
     id: number
 }
 
-type IDeleteCategoryResponse = void
+type IResponse = void
 
 @Injectable()
 export class DeleteCategoryService {
     constructor(private categoryRepository: CategoryRepository) { }
 
-    async execute({ id }: IDeleteCategoryRequest): Promise<IDeleteCategoryResponse> {
+    async execute({ id }: IRequest): Promise<IResponse> {
         const category = await this.categoryRepository.findByID(id);
         if (!category)
             throw new CategoryNotFound();
