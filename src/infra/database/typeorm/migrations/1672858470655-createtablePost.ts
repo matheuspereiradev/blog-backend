@@ -16,12 +16,12 @@ export class createtablePost1672858470655 implements MigrationInterface {
 				{
 					name: 'title',
 					type: 'varchar',
-					length: '100',
+					length: '200',
 				},
 				{
 					name: 'thumbnail',
 					type: 'varchar',
-					length: '100',
+					length: '200',
 				},
 				{
 					name: 'description',

@@ -29,7 +29,9 @@ export class TypeOrmCategoryRepository implements CategoryRepository {
                 id
             }
         })
-        return TypeormCategoryMapper.toDomain(category)
+        if(category)
+            return TypeormCategoryMapper.toDomain(category)
+        return null
     }
 
     async find(): Promise<Category[]> {

@@ -1,6 +1,6 @@
 nest g controller application/controllers/book --no-spec --flat
 
-nest g service application/use-cases/create-book --flat
+nest g service application/use-cases/create-post --flat
 
 yarn typeorm migration:create ./src/infra/database/typeorm/migrations/NOME
 

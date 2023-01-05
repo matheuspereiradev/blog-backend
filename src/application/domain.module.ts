@@ -24,6 +24,7 @@ import { JwtStrategy } from './guards/jwt.strategy';
 import { injectionProviders } from './providers/injection.providers';
 import { ListPostsService } from './use-cases/list-posts.service';
 import { PostController } from './controllers/post.controller';
+import { CreatePostService } from './use-cases/create-post.service';
 
 
 @Module({
@@ -52,7 +53,8 @@ import { PostController } from './controllers/post.controller';
     AuthService,
     LocalStrategy,
     JwtStrategy,
-    ListPostsService
+    ListPostsService,
+    CreatePostService
   ],
 })
 export class DomainModule { }

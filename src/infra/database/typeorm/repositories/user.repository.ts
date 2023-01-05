@@ -12,12 +12,12 @@ export class TypeOrmUserRepository implements UserRepository {
         @Inject('USER_REPOSITORY')
         private userRepository: Repository<UserEntity>,
     ) { }
-    
+
     async create(user: User): Promise<void> {
         const row = TypeormUserMapper.toTypeOrm(user)
         await this.userRepository.save(row)
     }
-    
+
     async save(user: User): Promise<void> {
         const row = TypeormUserMapper.toTypeOrm(user)
         await this.userRepository.save(row)
@@ -29,16 +29,20 @@ export class TypeOrmUserRepository implements UserRepository {
                 email
             }
         })
-        return TypeormUserMapper.toDomain(user)
+        if (user)
+            return TypeormUserMapper.toDomain(user)
+        return null
     }
-    
+
     async findByID(id: number): Promise<User> {
         const user = await this.userRepository.findOne({
             where: {
                 id
             }
         })
-        return TypeormUserMapper.toDomain(user)
+        if (user)
+            return TypeormUserMapper.toDomain(user)
+        return null
     }
 
     async find(): Promise<User[]> {

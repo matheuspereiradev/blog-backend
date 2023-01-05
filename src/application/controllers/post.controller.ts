@@ -1,14 +1,16 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put } from '@nestjs/common';
-import { UseGuards } from '@nestjs/common/decorators';
+import { Request, UseGuards } from '@nestjs/common/decorators';
+import { CreatePostBody } from '../dtos/createPost.body';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { successfullyDeleted } from '../helpers/ExcludedSuccessful';
+import { CreatePostService } from '../use-cases/create-post.service';
 import { ListPostsService } from '../use-cases/list-posts.service';
 import { PostViewMapper } from '../views/post.view';
 
 @Controller('posts')
 export class PostController {
     constructor(
-        // private readonly createPostService: CreatePostService,
+        private readonly createPostService: CreatePostService,
         // private readonly updatePostService: UpdatePostService,
         // private readonly deletePostService: DeletePostService,
         private readonly listPostService: ListPostsService,
@@ -22,18 +24,22 @@ export class PostController {
         }
     }
 
-    // @UseGuards(JwtAuthGuard)
-    // @Post()
-    // async create(@Body() body: CreatePostBody) {
-    //     const { description, icon, name } = body;
-    //     const { post } = await this.createPostService.execute({
-    //         description,
-    //         icon,
-    //         name
-    //     })
-
-    //     return PostViewMapper.toHTTP(post)
-    // }
+    @UseGuards(JwtAuthGuard)
+    @Post()
+    async create(@Body() body: CreatePostBody, @Request() req) {
+        const { content, description, thumbnail, title, idCategory } = body;
+        const idAuthor = req.user.userId;
+    
+        const { post } = await this.createPostService.execute({
+            description,
+            content,
+            thumbnail,
+            title,
+            idAuthor,
+            idCategory
+        })
+        return PostViewMapper.toHTTP(post)
+    }
 
     // @UseGuards(JwtAuthGuard)
     // @Put(':id')

@@ -30,7 +30,9 @@ export class TypeOrmPostRepository implements PostRepository {
             },
             relations: ['author', 'category']
         })
-        return TypeormPostMapper.toDomain(post)
+        if(post)
+            return TypeormPostMapper.toDomain(post)
+        return null
     }
 
     async find(): Promise<Post[]> {
