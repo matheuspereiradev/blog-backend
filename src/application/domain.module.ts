@@ -21,6 +21,9 @@ import { LocalStrategy } from './guards/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants/jwt.constants';
 import { JwtStrategy } from './guards/jwt.strategy';
+import { injectionProviders } from './providers/injection.providers';
+import { ListPostsService } from './use-cases/list-posts.service';
+import { PostController } from './controllers/post.controller';
 
 
 @Module({
@@ -33,29 +36,23 @@ import { JwtStrategy } from './guards/jwt.strategy';
       signOptions: { expiresIn: '60s' },
     }),
   ],
-  controllers: [CategoryController, UserController],
+  controllers: [
+    CategoryController, 
+    UserController,
+    PostController
+  ],
   providers: [
-    {
-      provide: CategoryRepository,
-      useClass: TypeOrmCategoryRepository
-    },
+    ...injectionProviders,
     CreateCategoryService,
     ListCategoriesService,
     UpdateCategoryService,
     DeleteCategoryService,
-    {
-      provide: UserRepository,
-      useClass: TypeOrmUserRepository
-    },
-    {
-      provide: HashProvider,
-      useClass: BCryptHashProvider
-    },
     CreateUserService,
     ListUsersService,
     AuthService,
     LocalStrategy,
-    JwtStrategy
+    JwtStrategy,
+    ListPostsService
   ],
 })
 export class DomainModule { }

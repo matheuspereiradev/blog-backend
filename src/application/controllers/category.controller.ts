@@ -57,11 +57,9 @@ export class CategoryController {
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async delete(@Param('id') id: number) {
-
         await this.deleteCategoryService.execute({
             id
         })
-
         return successfullyDeleted
     }
 

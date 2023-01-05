@@ -18,4 +18,18 @@ export class UserViewMapper {
             createdAt
         }
     }
+
+    static resumedVersion({
+        id,
+        name,
+        email,
+        surname
+    }: User) {
+        return {
+            id,
+            name,
+            email,
+            surname
+        }
+    }
 }

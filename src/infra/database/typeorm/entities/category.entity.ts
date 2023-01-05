@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, DeleteDateColumn, OneToMany, JoinColumn } from 'typeorm';
+import { PostEntity } from './post.entity';
 
 @Entity('tb_categories')
 export class CategoryEntity {
@@ -13,6 +14,10 @@ export class CategoryEntity {
 
     @Column()
     icon: string;
+
+    @OneToMany(_type => PostEntity, post => post.category)
+    @JoinColumn({ name: 'id' })
+    posts: PostEntity[];
 
     @CreateDateColumn({name: 'created_at'})
     createdAt: Date;
